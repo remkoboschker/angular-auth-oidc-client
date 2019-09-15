@@ -18,7 +18,7 @@ export class StateValidationService {
         private readonly configurationProvider: ConfigurationProvider
     ) { }
 
-    validateState(result: any, jwtKeys: JwtKeys): ValidateStateResult {
+    async validateState(result: any, jwtKeys: JwtKeys): Promise<ValidateStateResult> {
         const toReturn = new ValidateStateResult();
         if (!this.oidcSecurityValidation.validateStateFromHashCallback(result.state, this.oidcSecurityCommon.authStateControl)) {
             this.loggerService.logWarning('authorizedCallback incorrect state');
@@ -39,7 +39,7 @@ export class StateValidationService {
 
             toReturn.decoded_id_token = this.tokenHelperService.getPayloadFromToken(toReturn.id_token, false);
 
-            if (!this.oidcSecurityValidation.validate_signature_id_token(toReturn.id_token, jwtKeys)) {
+            if (!await this.oidcSecurityValidation.validate_signature_id_token(toReturn.id_token, jwtKeys)) {
                 this.loggerService.logDebug('authorizedCallback Signature validation failed id_token');
                 toReturn.state = ValidationResult.SignatureFailed;
                 this.handleUnsuccessfulValidation();
@@ -126,7 +126,7 @@ export class StateValidationService {
         }
 
         if (
-            !this.oidcSecurityValidation.validate_id_token_at_hash(
+            !await this.oidcSecurityValidation.validate_id_token_at_hash(
                 toReturn.access_token,
                 toReturn.decoded_id_token.at_hash,
                 this.configurationProvider.openIDConfiguration.response_type === 'code'

@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { hextob64u, KEYUTIL, KJUR } from 'jsrsasign';
 import { EqualityHelperService } from './oidc-equality-helper.service';
 import { TokenHelperService } from './oidc-token-helper.service';
 import { LoggerService } from './oidc.logger.service';
+
+
 
 // http://openid.net/specs/openid-connect-implicit-1_0.html
 
@@ -48,6 +49,10 @@ import { LoggerService } from './oidc.logger.service';
 
 @Injectable()
 export class OidcSecurityValidation {
+
+  private cyptoObj: Crypto = window.crypto || (window as any).msCrypto; // for IE11
+  private textEncoder = new (window as any).TextEncoder();
+
     constructor(
         private arrayHelperService: EqualityHelperService,
         private tokenHelperService: TokenHelperService,
@@ -137,10 +142,7 @@ export class OidcSecurityValidation {
 
     // id_token C8: The iat Claim can be used to reject tokens that were issued too far away from the current time,
     // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
-    validate_id_token_iat_max_offset(dataIdToken: any,
-        max_offset_allowed_in_seconds: number,
-        disable_iat_offset_validation: boolean): boolean {
-
+    validate_id_token_iat_max_offset(dataIdToken: any, max_offset_allowed_in_seconds: number, disable_iat_offset_validation: boolean): boolean {
         if (disable_iat_offset_validation) {
             return true;
         }
@@ -240,20 +242,22 @@ export class OidcSecurityValidation {
     // Header Parameter of the JOSE Header.The Client MUST use the keys provided by the Issuer.
     // id_token C6: The alg value SHOULD be RS256. Validation of tokens using other signing algorithms is described in the
     // OpenID Connect Core 1.0 [OpenID.Core] specification.
-    validate_signature_id_token(id_token: any, jwtkeys: any): boolean {
+    async validate_signature_id_token(idToken: any, jwtkeys: any): Promise<boolean> {
         if (!jwtkeys || !jwtkeys.keys) {
             return false;
         }
 
-        const header_data = this.tokenHelperService.getHeaderFromToken(id_token, false);
+        const headerData = this.tokenHelperService.getHeaderFromToken(idToken, false);
+        const body = this.tokenHelperService.getPayloadFromToken(idToken, false);
+        const signature = this.tokenHelperService.getSignatureFromToken(idToken, false);
 
-        if (Object.keys(header_data).length === 0 && header_data.constructor === Object) {
+        if (Object.keys(headerData).length === 0 && headerData.constructor === Object) {
             this.loggerService.logWarning('id token has no header data');
             return false;
         }
 
-        const kid = header_data.kid;
-        const alg = header_data.alg;
+        const kid = headerData.kid;
+        const alg = headerData.alg;
 
         if ('RS256' !== (alg as string)) {
             this.loggerService.logWarning('Only RS256 supported');
@@ -262,7 +266,7 @@ export class OidcSecurityValidation {
 
         let isValid = false;
 
-        if (!header_data.hasOwnProperty('kid')) {
+        if (!headerData.hasOwnProperty('kid')) {
             // exactly 1 key in the jwtkeys and no kid in the Jose header
             // kty	"RSA" use "sig"
             let amountOfMatchingKeys = 0;
@@ -281,8 +285,10 @@ export class OidcSecurityValidation {
             } else {
                 for (const key of jwtkeys.keys) {
                     if ((key.kty as string) === 'RSA' && (key.use as string) === 'sig') {
-                        const publickey = KEYUTIL.getKey(key);
-                        isValid = KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                        const cyptokey = await this.cyptoObj.subtle.importKey('jwk', key as any, alg, true, ['verify']);
+                        isValid = await this.cyptoObj.subtle
+                          .verify(alg, cyptokey, this.textEncoder.encode(signature), this.textEncoder.encode(body));
+
                         if (!isValid) {
                             this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                         }
@@ -294,8 +300,9 @@ export class OidcSecurityValidation {
             // kid in the Jose header of id_token
             for (const key of jwtkeys.keys) {
                 if ((key.kid as string) === (kid as string)) {
-                    const publickey = KEYUTIL.getKey(key);
-                    isValid = KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                    const publickey = await this.cyptoObj.subtle.importKey('jwk', key as any, alg, true, ['verify']);
+                    isValid = await this.cyptoObj.subtle
+                          .verify(alg, publickey, this.textEncoder.encode(signature), this.textEncoder.encode(body));
                     if (!isValid) {
                         this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                     }
@@ -307,16 +314,16 @@ export class OidcSecurityValidation {
         return isValid;
     }
 
-    config_validate_response_type(response_type: string): boolean {
-        if (response_type === 'id_token token' || response_type === 'id_token') {
+    config_validate_response_type(responseType: string): boolean {
+        if (responseType === 'id_token token' || responseType === 'id_token') {
             return true;
         }
 
-        if (response_type === 'code') {
+        if (responseType === 'code') {
             return true;
         }
 
-        this.loggerService.logWarning('module configure incorrect, invalid response_type:' + response_type);
+        this.loggerService.logWarning('module configure incorrect, invalid response_type:' + responseType);
         return false;
     }
 
@@ -340,25 +347,27 @@ export class OidcSecurityValidation {
     // access_token C2: Take the left- most half of the hash and base64url- encode it.
     // access_token C3: The value of at_hash in the ID Token MUST match the value produced in the previous step if at_hash
     // is present in the ID Token.
-    validate_id_token_at_hash(access_token: any, at_hash: any, isCodeFlow: boolean): boolean {
-        this.loggerService.logDebug('at_hash from the server:' + at_hash);
+    async validate_id_token_at_hash(accessToken: any, atHash: any, isCodeFlow: boolean): Promise<boolean> {
+        this.loggerService.logDebug('at_hash from the server:' + atHash);
 
         // The at_hash is optional for the code flow
-        if (isCodeFlow) {
-            if (!(at_hash as string)) {
-                this.loggerService.logDebug('Code Flow active, and no at_hash in the id_token, skipping check!');
-                return true;
-            }
+        if (isCodeFlow && !atHash) {
+            this.loggerService.logDebug('Code Flow active, and no at_hash in the id_token, skipping check!');
+            return true;
         }
 
-        const testdata = this.generate_at_hash('' + access_token);
+        const atHashAsString = atHash as string;
+
+        const testdata = await this.generate_at_hash('' + accessToken);
+
         this.loggerService.logDebug('at_hash client validation not decoded:' + testdata);
-        if (testdata === (at_hash as string)) {
+
+        if (testdata === atHashAsString) {
             return true; // isValid;
         } else {
-            const testValue = this.generate_at_hash('' + decodeURIComponent(access_token));
+            const testValue = await this.generate_at_hash('' + decodeURIComponent(accessToken));
             this.loggerService.logDebug('-gen access--' + testValue);
-            if (testValue === (at_hash as string)) {
+            if (testValue === atHashAsString) {
                 return true; // isValid
             }
         }
@@ -366,18 +375,22 @@ export class OidcSecurityValidation {
         return false;
     }
 
-    private generate_at_hash(access_token: any): string {
-        const hash = KJUR.crypto.Util.hashString(access_token, 'sha256');
-        const first128bits = hash.substr(0, hash.length / 2);
-        const testdata = hextob64u(first128bits);
+    private async generate_at_hash(accessToken: any): Promise<string> {
+        // const hash = KJUR.crypto.Util.hashString(access_token, 'sha256');
+        // const first128bits = hash.substr(0, hash.length / 2);
+        // const testdata = hextob64u(first128bits);
 
-        return testdata;
+        // return testdata;
+
+        const hash = this.textEncoder.encode(accessToken);
+        const first128bits = hash.substr(0, hash.length / 2);
+        const bytes = await this.cyptoObj.subtle.digest('sha256', first128bits);
+        return String.fromCharCode.apply(null, new Uint16Array(bytes));
     }
 
-    generate_code_verifier(code_challenge: any): string {
-        const hash = KJUR.crypto.Util.hashString(code_challenge, 'sha256');
-        const testdata = hextob64u(hash);
-
-        return testdata;
+    async generate_code_verifier(codeChallenge: any): Promise<string> {
+      const hash = this.textEncoder.encode(codeChallenge);
+      const bytes = await this.cyptoObj.subtle.digest('sha256', hash);
+      return String.fromCharCode.apply(null, new Uint16Array(bytes));
     }
 }

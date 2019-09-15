@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, from, Observable, of, Subject, throwError as observableThrowError, timer } from 'rxjs';
-import { catchError, filter, map, race, shareReplay, switchMap, switchMapTo, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, race, shareReplay, switchMap, switchMapTo, take, tap, withLatestFrom } from 'rxjs/operators';
 import { OidcDataService } from '../data-services/oidc-data.service';
 import { OpenIdConfiguration } from '../models/auth.configuration';
 import { AuthWellKnownEndpoints } from '../models/auth.well-known-endpoints';
@@ -257,7 +257,7 @@ export class OidcSecurityService {
     }
 
     // Code Flow with PCKE or Implicit Flow
-    authorize(urlHandler?: (url: string) => any) {
+    async authorize(urlHandler?: (url: string) => any) {
         if (this.configurationProvider.wellKnownEndpoints) {
             this.authWellKnownEndpointsLoaded = true;
         }
@@ -291,7 +291,7 @@ export class OidcSecurityService {
         if (this.configurationProvider.openIDConfiguration.response_type === 'code') {
             // code_challenge with "S256"
             const code_verifier = 'C' + Math.random() + '' + Date.now() + '' + Date.now() + Math.random();
-            const code_challenge = this.oidcSecurityValidation.generate_code_verifier(code_verifier);
+            const code_challenge = await this.oidcSecurityValidation.generate_code_verifier(code_verifier);
 
             this.oidcSecurityCommon.code_verifier = code_verifier;
 
@@ -515,9 +515,10 @@ export class OidcSecurityService {
 
             this.loggerService.logDebug('authorizedCallback created, begin token validation');
 
-            this.getSigningKeys().subscribe(
-                jwtKeys => {
-                    const validationResult = this.getValidatedStateResult(result, jwtKeys);
+            this.getSigningKeys().pipe(
+              switchMap((jwtKeys) => from(this.getValidatedStateResult(result, jwtKeys)))
+            ).subscribe(
+                (validationResult) => {
 
                     if (validationResult.authResponseIsValid) {
                         this.setAuthorizationData(validationResult.access_token, validationResult.id_token);
@@ -649,8 +650,8 @@ export class OidcSecurityService {
         if (this.configurationProvider.wellKnownEndpoints) {
             if (this.configurationProvider.wellKnownEndpoints.end_session_endpoint) {
                 const end_session_endpoint = this.configurationProvider.wellKnownEndpoints.end_session_endpoint;
-                const id_token_hint = this.oidcSecurityCommon.idToken;
-                const url = this.createEndSessionUrl(end_session_endpoint, id_token_hint);
+                const idTokenHint = this.oidcSecurityCommon.idToken;
+                const url = this.createEndSessionUrl(end_session_endpoint, idTokenHint);
 
                 this.resetAuthorizationData(false);
 
@@ -678,7 +679,7 @@ export class OidcSecurityService {
         this.loggerService.logDebug('BEGIN refresh session Authorize');
 
         let state = this.oidcSecurityCommon.authStateControl;
-        if (state === '' || state === null) {
+        if (!state) {
             state = Date.now() + '' + Math.random() + Math.random();
             this.oidcSecurityCommon.authStateControl = state;
         }
@@ -693,30 +694,37 @@ export class OidcSecurityService {
         if (this.configurationProvider.openIDConfiguration.response_type === 'code') {
             if (this.configurationProvider.openIDConfiguration.use_refresh_token) {
                 // try using refresh token
-                const refresh_token = this.oidcSecurityCommon.getRefreshToken();
-                if (refresh_token) {
+                const refreshToken = this.oidcSecurityCommon.getRefreshToken();
+                if (refreshToken) {
                     this.loggerService.logDebug('found refresh code, obtaining new credentials with refresh code');
-                    return this.refreshTokensWithCodeProcedure(refresh_token, state);
+                    return this.refreshTokensWithCodeProcedure(refreshToken, state);
                 } else {
                     this.loggerService.logDebug('no refresh token found, using silent renew');
                 }
             }
             // code_challenge with "S256"
-            const code_verifier = 'C' + Math.random() + '' + Date.now() + '' + Date.now() + Math.random();
-            const code_challenge = this.oidcSecurityValidation.generate_code_verifier(code_verifier);
+            const codeVerifier = 'C' + Math.random() + '' + Date.now() + '' + Date.now() + Math.random();
+            const codeChallenge$ = from(this.oidcSecurityValidation.generate_code_verifier(codeVerifier));
 
-            this.oidcSecurityCommon.code_verifier = code_verifier;
+            this.oidcSecurityCommon.code_verifier = codeVerifier;
 
             if (this.configurationProvider.wellKnownEndpoints) {
-                url = this.createAuthorizeUrl(
-                    true,
-                    code_challenge,
-                    this.configurationProvider.openIDConfiguration.silent_renew_url,
-                    nonce,
-                    state,
-                    this.configurationProvider.wellKnownEndpoints.authorization_endpoint || '',
-                    'none'
-                );
+
+              return codeChallenge$.pipe(switchMap(codeChallenge => {
+                  url = this.createAuthorizeUrl(
+                      true,
+                      codeChallenge,
+                      this.configurationProvider.openIDConfiguration.silent_renew_url,
+                      nonce,
+                      state,
+                      this.configurationProvider.wellKnownEndpoints.authorization_endpoint || '',
+                      'none'
+                  );
+
+                  this.oidcSecurityCommon.silentRenewRunning = 'running';
+                  return this.oidcSecuritySilentRenew.startRenew(url);
+                })
+              );
             } else {
                 this.loggerService.logWarning('authWellKnownEndpoints is undefined');
             }
@@ -796,12 +804,12 @@ export class OidcSecurityService {
         }
     }
 
-    private getValidatedStateResult(result: any, jwtKeys: JwtKeys): ValidateStateResult {
+    private async getValidatedStateResult(result: any, jwtKeys: JwtKeys): Promise<ValidateStateResult> {
         if (result.error) {
             return new ValidateStateResult('', '', false, {});
         }
 
-        return this.stateValidationService.validateState(result, jwtKeys);
+        return await this.stateValidationService.validateState(result, jwtKeys);
     }
 
     private setUserData(userData: any): void {
