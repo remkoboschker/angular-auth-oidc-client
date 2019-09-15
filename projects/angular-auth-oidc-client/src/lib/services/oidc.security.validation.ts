@@ -384,13 +384,13 @@ export class OidcSecurityValidation {
 
         const hash = this.textEncoder.encode(accessToken);
         const first128bits = hash.substr(0, hash.length / 2);
-        const bytes = await this.cyptoObj.subtle.digest('sha256', first128bits);
+        const bytes = await this.cyptoObj.subtle.digest('SHA-256', first128bits);
         return String.fromCharCode.apply(null, new Uint16Array(bytes));
     }
 
     async generate_code_verifier(codeChallenge: any): Promise<string> {
       const hash = this.textEncoder.encode(codeChallenge);
-      const bytes = await this.cyptoObj.subtle.digest('sha256', hash);
+      const bytes = await this.cyptoObj.subtle.digest('SHA-256', hash);
       return String.fromCharCode.apply(null, new Uint16Array(bytes));
     }
 }
