@@ -80,7 +80,10 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var ValidateStateResult = /** @class */ (function () {
+    // tslint:disable: variable-name
+    var  
+    // tslint:disable: variable-name
+    ValidateStateResult = /** @class */ (function () {
         function ValidateStateResult(access_token, id_token, authResponseIsValid, decoded_id_token, state) {
             if (access_token === void 0) {
                 access_token = '';
@@ -256,6 +259,7 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var PlatformProvider = /** @class */ (function () {
+        // tslint:disable-next-line: ban-types
         function PlatformProvider(platformId) {
             this.platformId = platformId;
         }
@@ -861,7 +865,8 @@
                 var decoded = typeof window !== 'undefined' ? window.atob(output) : new Buffer(output, 'base64').toString('binary');
                 try {
                     // Going backwards: from bytestream, to percent-encoding, to original string.
-                    return decodeURIComponent(decoded.split('')
+                    return decodeURIComponent(decoded
+                        .split('')
                         .map(( /**
                  * @param {?} c
                  * @return {?}
@@ -996,29 +1001,29 @@
     var OidcSecurityCommon = /** @class */ (function () {
         function OidcSecurityCommon(oidcSecurityStorage) {
             this.oidcSecurityStorage = oidcSecurityStorage;
-            this.storage_auth_result = 'authorizationResult';
-            this.storage_access_token = 'authorizationData';
-            this.storage_id_token = 'authorizationDataIdToken';
-            this.storage_is_authorized = '_isAuthorized';
-            this.storage_user_data = 'userData';
-            this.storage_auth_nonce = 'authNonce';
-            this.storage_code_verifier = 'code_verifier';
-            this.storage_auth_state_control = 'authStateControl';
-            this.storage_session_state = 'session_state';
-            this.storage_silent_renew_running = 'storage_silent_renew_running';
-            this.storage_custom_request_params = 'storage_custom_request_params';
+            this.storageAuthResult = 'authorizationResult';
+            this.storageAccessToken = 'authorizationData';
+            this.storageIdToken = 'authorizationDataIdToken';
+            this.storageIsAuthorized = '_isAuthorized';
+            this.storageUserData = 'userData';
+            this.storageAuthNonce = 'authNonce';
+            this.storageCodeVerifier = 'code_verifier';
+            this.storageAuthStateControl = 'authStateControl';
+            this.storageSessionState = 'session_state';
+            this.storageSilentRenewRunning = 'storage_silent_renew_running';
+            this.storageCustomRequestParams = 'storage_custom_request_params';
         }
         Object.defineProperty(OidcSecurityCommon.prototype, "authResult", {
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_auth_result);
+                return this.retrieve(this.storageAuthResult);
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_auth_result, value);
+                this.store(this.storageAuthResult, value);
             },
             enumerable: true,
             configurable: true
@@ -1027,13 +1032,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_access_token) || '';
+                return this.retrieve(this.storageAccessToken) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_access_token, value);
+                this.store(this.storageAccessToken, value);
             },
             enumerable: true,
             configurable: true
@@ -1042,13 +1047,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_id_token) || '';
+                return this.retrieve(this.storageIdToken) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_id_token, value);
+                this.store(this.storageIdToken, value);
             },
             enumerable: true,
             configurable: true
@@ -1057,13 +1062,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_is_authorized);
+                return this.retrieve(this.storageIsAuthorized);
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_is_authorized, value);
+                this.store(this.storageIsAuthorized, value);
             },
             enumerable: true,
             configurable: true
@@ -1072,13 +1077,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_user_data);
+                return this.retrieve(this.storageUserData);
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_user_data, value);
+                this.store(this.storageUserData, value);
             },
             enumerable: true,
             configurable: true
@@ -1087,13 +1092,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_auth_nonce) || '';
+                return this.retrieve(this.storageAuthNonce) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_auth_nonce, value);
+                this.store(this.storageAuthNonce, value);
             },
             enumerable: true,
             configurable: true
@@ -1102,13 +1107,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_code_verifier) || '';
+                return this.retrieve(this.storageCodeVerifier) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_code_verifier, value);
+                this.store(this.storageCodeVerifier, value);
             },
             enumerable: true,
             configurable: true
@@ -1117,13 +1122,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_auth_state_control) || '';
+                return this.retrieve(this.storageAuthStateControl) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_auth_state_control, value);
+                this.store(this.storageAuthStateControl, value);
             },
             enumerable: true,
             configurable: true
@@ -1132,13 +1137,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_session_state);
+                return this.retrieve(this.storageSessionState);
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_session_state, value);
+                this.store(this.storageSessionState, value);
             },
             enumerable: true,
             configurable: true
@@ -1147,13 +1152,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_silent_renew_running) || '';
+                return this.retrieve(this.storageSilentRenewRunning) || '';
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_silent_renew_running, value);
+                this.store(this.storageSilentRenewRunning, value);
             },
             enumerable: true,
             configurable: true
@@ -1162,13 +1167,13 @@
             get: /**
              * @return {?}
              */ function () {
-                return this.retrieve(this.storage_custom_request_params);
+                return this.retrieve(this.storageCustomRequestParams);
             },
             set: /**
              * @param {?} value
              * @return {?}
              */ function (value) {
-                this.store(this.storage_custom_request_params, value);
+                this.store(this.storageCustomRequestParams, value);
             },
             enumerable: true,
             configurable: true
@@ -1211,14 +1216,14 @@
          */
             function (isRenewProcess) {
                 if (!isRenewProcess) {
-                    this.store(this.storage_auth_result, '');
-                    this.store(this.storage_session_state, '');
-                    this.store(this.storage_silent_renew_running, '');
-                    this.store(this.storage_is_authorized, false);
-                    this.store(this.storage_access_token, '');
-                    this.store(this.storage_id_token, '');
-                    this.store(this.storage_user_data, '');
-                    this.store(this.storage_code_verifier, '');
+                    this.store(this.storageAuthResult, '');
+                    this.store(this.storageSessionState, '');
+                    this.store(this.storageSilentRenewRunning, '');
+                    this.store(this.storageIsAuthorized, false);
+                    this.store(this.storageAccessToken, '');
+                    this.store(this.storageIdToken, '');
+                    this.store(this.storageUserData, '');
+                    this.store(this.storageCodeVerifier, '');
                 }
             };
         /**
@@ -1228,7 +1233,7 @@
          * @return {?}
          */
             function () {
-                return this.retrieve(this.storage_access_token);
+                return this.retrieve(this.storageAccessToken);
             };
         /**
          * @return {?}
@@ -1237,7 +1242,7 @@
          * @return {?}
          */
             function () {
-                return this.retrieve(this.storage_id_token);
+                return this.retrieve(this.storageIdToken);
             };
         /**
          * @return {?}
@@ -1309,15 +1314,18 @@
             this.tokenHelperService = tokenHelperService;
             this.loggerService = loggerService;
         }
-        // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
-        // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+        // id_token C7: The current time MUST be before the time represented by the exp Claim
+        // (possibly allowing for some small leeway to account for clock skew).
+        // id_token C7: The current time MUST be before the time represented by the exp Claim
+        // (possibly allowing for some small leeway to account for clock skew).
         /**
          * @param {?} token
          * @param {?=} offsetSeconds
          * @return {?}
          */
         OidcSecurityValidation.prototype.isTokenExpired =
-            // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+            // id_token C7: The current time MUST be before the time represented by the exp Claim
+            // (possibly allowing for some small leeway to account for clock skew).
             /**
              * @param {?} token
              * @param {?=} offsetSeconds
@@ -1329,15 +1337,21 @@
                 decoded = this.tokenHelperService.getPayloadFromToken(token, false);
                 return !this.validate_id_token_exp_not_expired(decoded, offsetSeconds);
             };
-        // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
-        // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+        // id_token C7: The current time MUST be before the time represented by the exp Claim
+        // (possibly allowing for some small leeway to account for clock skew).
+        // tslint:disable-next-line: variable-name
+        // id_token C7: The current time MUST be before the time represented by the exp Claim
+        // (possibly allowing for some small leeway to account for clock skew).
+        // tslint:disable-next-line: variable-name
         /**
          * @param {?} decoded_id_token
          * @param {?=} offsetSeconds
          * @return {?}
          */
         OidcSecurityValidation.prototype.validate_id_token_exp_not_expired =
-            // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+            // id_token C7: The current time MUST be before the time represented by the exp Claim
+            // (possibly allowing for some small leeway to account for clock skew).
+            // tslint:disable-next-line: variable-name
             /**
              * @param {?} decoded_id_token
              * @param {?=} offsetSeconds
@@ -1361,7 +1375,8 @@
                 return tokenNotExpired;
             };
         // iss
-        // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the https scheme that contains scheme, host,
+        // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the
+        // https scheme that contains scheme, host,
         // and optionally, port number and path components and no query or fragment components.
         //
         // sub
@@ -1382,10 +1397,12 @@
         // See RFC 3339 [RFC3339] for details regarding date/ times in general and UTC in particular.
         //
         // iat
-        // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from 1970- 01 - 01T00: 00:00Z as measured
+        // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from
+        // 1970- 01 - 01T00: 00: 00Z as measured
         // in UTC until the date/ time.
         // iss
-        // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the https scheme that contains scheme, host,
+        // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the
+        // https scheme that contains scheme, host,
         // and optionally, port number and path components and no query or fragment components.
         //
         // sub
@@ -1406,7 +1423,8 @@
         // See RFC 3339 [RFC3339] for details regarding date/ times in general and UTC in particular.
         //
         // iat
-        // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from 1970- 01 - 01T00: 00:00Z as measured
+        // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from
+        // 1970- 01 - 01T00: 00: 00Z as measured
         // in UTC until the date/ time.
         /**
          * @param {?} dataIdToken
@@ -1414,7 +1432,8 @@
          */
         OidcSecurityValidation.prototype.validate_required_id_token =
             // iss
-            // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the https scheme that contains scheme, host,
+            // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the
+            // https scheme that contains scheme, host,
             // and optionally, port number and path components and no query or fragment components.
             //
             // sub
@@ -1435,7 +1454,8 @@
             // See RFC 3339 [RFC3339] for details regarding date/ times in general and UTC in particular.
             //
             // iat
-            // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from 1970- 01 - 01T00: 00:00Z as measured
+            // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from
+            // 1970- 01 - 01T00: 00: 00Z as measured
             // in UTC until the date/ time.
             /**
              * @param {?} dataIdToken
@@ -1472,8 +1492,8 @@
         // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
         /**
          * @param {?} dataIdToken
-         * @param {?} max_offset_allowed_in_seconds
-         * @param {?} disable_iat_offset_validation
+         * @param {?} maxOffsetAllowedInSeconds
+         * @param {?} disableIatOffsetValidation
          * @return {?}
          */
         OidcSecurityValidation.prototype.validate_id_token_iat_max_offset =
@@ -1481,29 +1501,26 @@
             // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
             /**
              * @param {?} dataIdToken
-             * @param {?} max_offset_allowed_in_seconds
-             * @param {?} disable_iat_offset_validation
+             * @param {?} maxOffsetAllowedInSeconds
+             * @param {?} disableIatOffsetValidation
              * @return {?}
              */
-            function (dataIdToken, max_offset_allowed_in_seconds, disable_iat_offset_validation) {
-                if (disable_iat_offset_validation) {
+            function (dataIdToken, maxOffsetAllowedInSeconds, disableIatOffsetValidation) {
+                if (disableIatOffsetValidation) {
                     return true;
                 }
                 if (!dataIdToken.hasOwnProperty('iat')) {
                     return false;
                 }
                 /** @type {?} */
-                var dateTime_iat_id_token = new Date(0);
-                dateTime_iat_id_token.setUTCSeconds(dataIdToken.iat);
-                max_offset_allowed_in_seconds = max_offset_allowed_in_seconds || 0;
-                if (dateTime_iat_id_token == null) {
+                var dateTimeIatIdToken = new Date(0);
+                dateTimeIatIdToken.setUTCSeconds(dataIdToken.iat);
+                maxOffsetAllowedInSeconds = maxOffsetAllowedInSeconds || 0;
+                if (dateTimeIatIdToken == null) {
                     return false;
                 }
-                this.loggerService.logDebug('validate_id_token_iat_max_offset: ' +
-                    (new Date().valueOf() - dateTime_iat_id_token.valueOf()) +
-                    ' < ' +
-                    max_offset_allowed_in_seconds * 1000);
-                return new Date().valueOf() - dateTime_iat_id_token.valueOf() < max_offset_allowed_in_seconds * 1000;
+                this.loggerService.logDebug('validate_id_token_iat_max_offset: ' + (new Date().valueOf() - dateTimeIatIdToken.valueOf()) + ' < ' + maxOffsetAllowedInSeconds * 1000);
+                return new Date().valueOf() - dateTimeIatIdToken.valueOf() < maxOffsetAllowedInSeconds * 1000;
             };
         // id_token C9: The value of the nonce Claim MUST be checked to verify that it is the same value as the one
         // that was sent in the Authentication Request.The Client SHOULD check the nonce value for replay attacks.
@@ -1519,8 +1536,8 @@
         // The current spec is ambiguous and Keycloak does send it.
         /**
          * @param {?} dataIdToken
-         * @param {?} local_nonce
-         * @param {?} ignore_nonce_after_refresh
+         * @param {?} localNonce
+         * @param {?} ignoreNonceAfterRefresh
          * @return {?}
          */
         OidcSecurityValidation.prototype.validate_id_token_nonce =
@@ -1532,23 +1549,25 @@
             // The current spec is ambiguous and Keycloak does send it.
             /**
              * @param {?} dataIdToken
-             * @param {?} local_nonce
-             * @param {?} ignore_nonce_after_refresh
+             * @param {?} localNonce
+             * @param {?} ignoreNonceAfterRefresh
              * @return {?}
              */
-            function (dataIdToken, local_nonce, ignore_nonce_after_refresh) {
+            function (dataIdToken, localNonce, ignoreNonceAfterRefresh) {
                 /** @type {?} */
-                var isFromRefreshToken = (dataIdToken.nonce === undefined || ignore_nonce_after_refresh) && local_nonce === OidcSecurityValidation.RefreshTokenNoncePlaceholder;
-                if (!isFromRefreshToken && dataIdToken.nonce !== local_nonce) {
-                    this.loggerService.logDebug('Validate_id_token_nonce failed, dataIdToken.nonce: ' + dataIdToken.nonce + ' local_nonce:' + local_nonce);
+                var isFromRefreshToken = (dataIdToken.nonce === undefined || ignoreNonceAfterRefresh) && localNonce === OidcSecurityValidation.RefreshTokenNoncePlaceholder;
+                if (!isFromRefreshToken && dataIdToken.nonce !== localNonce) {
+                    this.loggerService.logDebug('Validate_id_token_nonce failed, dataIdToken.nonce: ' + dataIdToken.nonce + ' local_nonce:' + localNonce);
                     return false;
                 }
                 return true;
             };
         // id_token C1: The Issuer Identifier for the OpenID Provider (which is typically obtained during Discovery)
         // MUST exactly match the value of the iss (issuer) Claim.
+        // tslint:disable-next-line: variable-name
         // id_token C1: The Issuer Identifier for the OpenID Provider (which is typically obtained during Discovery)
         // MUST exactly match the value of the iss (issuer) Claim.
+        // tslint:disable-next-line: variable-name
         /**
          * @param {?} dataIdToken
          * @param {?} authWellKnownEndpoints_issuer
@@ -1557,6 +1576,7 @@
         OidcSecurityValidation.prototype.validate_id_token_iss =
             // id_token C1: The Issuer Identifier for the OpenID Provider (which is typically obtained during Discovery)
             // MUST exactly match the value of the iss (issuer) Claim.
+            // tslint:disable-next-line: variable-name
             /**
              * @param {?} dataIdToken
              * @param {?} authWellKnownEndpoints_issuer
@@ -1613,34 +1633,34 @@
             };
         /**
          * @param {?} state
-         * @param {?} local_state
+         * @param {?} localState
          * @return {?}
          */
         OidcSecurityValidation.prototype.validateStateFromHashCallback = /**
          * @param {?} state
-         * @param {?} local_state
+         * @param {?} localState
          * @return {?}
          */
-            function (state, local_state) {
-                if ((( /** @type {?} */(state))) !== (( /** @type {?} */(local_state)))) {
-                    this.loggerService.logDebug('ValidateStateFromHashCallback failed, state: ' + state + ' local_state:' + local_state);
+            function (state, localState) {
+                if ((( /** @type {?} */(state))) !== (( /** @type {?} */(localState)))) {
+                    this.loggerService.logDebug('ValidateStateFromHashCallback failed, state: ' + state + ' local_state:' + localState);
                     return false;
                 }
                 return true;
             };
         /**
-         * @param {?} id_token_sub
-         * @param {?} userdata_sub
+         * @param {?} idTokenSub
+         * @param {?} userdataSub
          * @return {?}
          */
         OidcSecurityValidation.prototype.validate_userdata_sub_id_token = /**
-         * @param {?} id_token_sub
-         * @param {?} userdata_sub
+         * @param {?} idTokenSub
+         * @param {?} userdataSub
          * @return {?}
          */
-            function (id_token_sub, userdata_sub) {
-                if ((( /** @type {?} */(id_token_sub))) !== (( /** @type {?} */(userdata_sub)))) {
-                    this.loggerService.logDebug('validate_userdata_sub_id_token failed, id_token_sub: ' + id_token_sub + ' userdata_sub:' + userdata_sub);
+            function (idTokenSub, userdataSub) {
+                if ((( /** @type {?} */(idTokenSub))) !== (( /** @type {?} */(userdataSub)))) {
+                    this.loggerService.logDebug('validate_userdata_sub_id_token failed, id_token_sub: ' + idTokenSub + ' userdata_sub:' + userdataSub);
                     return false;
                 }
                 return true;
@@ -1654,7 +1674,7 @@
         // id_token C6: The alg value SHOULD be RS256. Validation of tokens using other signing algorithms is described in the
         // OpenID Connect Core 1.0 [OpenID.Core] specification.
         /**
-         * @param {?} id_token
+         * @param {?} idToken
          * @param {?} jwtkeys
          * @return {?}
          */
@@ -1664,32 +1684,32 @@
             // id_token C6: The alg value SHOULD be RS256. Validation of tokens using other signing algorithms is described in the
             // OpenID Connect Core 1.0 [OpenID.Core] specification.
             /**
-             * @param {?} id_token
+             * @param {?} idToken
              * @param {?} jwtkeys
              * @return {?}
              */
-            function (id_token, jwtkeys) {
+            function (idToken, jwtkeys) {
                 var e_1, _a, e_2, _b, e_3, _c;
                 if (!jwtkeys || !jwtkeys.keys) {
                     return false;
                 }
                 /** @type {?} */
-                var header_data = this.tokenHelperService.getHeaderFromToken(id_token, false);
-                if (Object.keys(header_data).length === 0 && header_data.constructor === Object) {
+                var headerData = this.tokenHelperService.getHeaderFromToken(idToken, false);
+                if (Object.keys(headerData).length === 0 && headerData.constructor === Object) {
                     this.loggerService.logWarning('id token has no header data');
                     return false;
                 }
                 /** @type {?} */
-                var kid = header_data.kid;
+                var kid = headerData.kid;
                 /** @type {?} */
-                var alg = header_data.alg;
+                var alg = headerData.alg;
                 if ('RS256' !== (( /** @type {?} */(alg)))) {
                     this.loggerService.logWarning('Only RS256 supported');
                     return false;
                 }
                 /** @type {?} */
                 var isValid = false;
-                if (!header_data.hasOwnProperty('kid')) {
+                if (!headerData.hasOwnProperty('kid')) {
                     // exactly 1 key in the jwtkeys and no kid in the Jose header
                     // kty	"RSA" use "sig"
                     /** @type {?} */
@@ -1730,7 +1750,7 @@
                                 if ((( /** @type {?} */(key.kty))) === 'RSA' && (( /** @type {?} */(key.use))) === 'sig') {
                                     /** @type {?} */
                                     var publickey = jsrsasignReduced.KEYUTIL.getKey(key);
-                                    isValid = jsrsasignReduced.KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                                    isValid = jsrsasignReduced.KJUR.jws.JWS.verify(idToken, publickey, ['RS256']);
                                     if (!isValid) {
                                         this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                                     }
@@ -1761,7 +1781,7 @@
                             if ((( /** @type {?} */(key.kid))) === (( /** @type {?} */(kid)))) {
                                 /** @type {?} */
                                 var publickey = jsrsasignReduced.KEYUTIL.getKey(key);
-                                isValid = jsrsasignReduced.KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                                isValid = jsrsasignReduced.KJUR.jws.JWS.verify(idToken, publickey, ['RS256']);
                                 if (!isValid) {
                                     this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                                 }
@@ -1786,21 +1806,21 @@
                 return isValid;
             };
         /**
-         * @param {?} response_type
+         * @param {?} responseType
          * @return {?}
          */
         OidcSecurityValidation.prototype.config_validate_response_type = /**
-         * @param {?} response_type
+         * @param {?} responseType
          * @return {?}
          */
-            function (response_type) {
-                if (response_type === 'id_token token' || response_type === 'id_token') {
+            function (responseType) {
+                if (responseType === 'id_token token' || responseType === 'id_token') {
                     return true;
                 }
-                if (response_type === 'code') {
+                if (responseType === 'code') {
                     return true;
                 }
-                this.loggerService.logWarning('module configure incorrect, invalid response_type:' + response_type);
+                this.loggerService.logWarning('module configure incorrect, invalid response_type:' + responseType);
                 return false;
             };
         // Accepts ID Token without 'kid' claim in JOSE header if only one JWK supplied in 'jwks_url'
@@ -1840,8 +1860,8 @@
         // access_token C3: The value of at_hash in the ID Token MUST match the value produced in the previous step if at_hash
         // is present in the ID Token.
         /**
-         * @param {?} access_token
-         * @param {?} at_hash
+         * @param {?} accessToken
+         * @param {?} atHash
          * @param {?} isCodeFlow
          * @return {?}
          */
@@ -1865,31 +1885,31 @@
             // access_token C3: The value of at_hash in the ID Token MUST match the value produced in the previous step if at_hash
             // is present in the ID Token.
             /**
-             * @param {?} access_token
-             * @param {?} at_hash
+             * @param {?} accessToken
+             * @param {?} atHash
              * @param {?} isCodeFlow
              * @return {?}
              */
-            function (access_token, at_hash, isCodeFlow) {
-                this.loggerService.logDebug('at_hash from the server:' + at_hash);
+            function (accessToken, atHash, isCodeFlow) {
+                this.loggerService.logDebug('at_hash from the server:' + atHash);
                 // The at_hash is optional for the code flow
                 if (isCodeFlow) {
-                    if (!(( /** @type {?} */(at_hash)))) {
+                    if (!(( /** @type {?} */(atHash)))) {
                         this.loggerService.logDebug('Code Flow active, and no at_hash in the id_token, skipping check!');
                         return true;
                     }
                 }
                 /** @type {?} */
-                var testdata = this.generate_at_hash('' + access_token);
+                var testdata = this.generate_at_hash('' + accessToken);
                 this.loggerService.logDebug('at_hash client validation not decoded:' + testdata);
-                if (testdata === (( /** @type {?} */(at_hash)))) {
+                if (testdata === (( /** @type {?} */(atHash)))) {
                     return true; // isValid;
                 }
                 else {
                     /** @type {?} */
-                    var testValue = this.generate_at_hash('' + decodeURIComponent(access_token));
+                    var testValue = this.generate_at_hash('' + decodeURIComponent(accessToken));
                     this.loggerService.logDebug('-gen access--' + testValue);
-                    if (testValue === (( /** @type {?} */(at_hash)))) {
+                    if (testValue === (( /** @type {?} */(atHash)))) {
                         return true; // isValid
                     }
                 }
@@ -1897,17 +1917,17 @@
             };
         /**
          * @private
-         * @param {?} access_token
+         * @param {?} accessToken
          * @return {?}
          */
         OidcSecurityValidation.prototype.generate_at_hash = /**
          * @private
-         * @param {?} access_token
+         * @param {?} accessToken
          * @return {?}
          */
-            function (access_token) {
+            function (accessToken) {
                 /** @type {?} */
-                var hash = jsrsasignReduced.KJUR.crypto.Util.hashString(access_token, 'sha256');
+                var hash = jsrsasignReduced.KJUR.crypto.Util.hashString(accessToken, 'sha256');
                 /** @type {?} */
                 var first128bits = hash.substr(0, hash.length / 2);
                 /** @type {?} */
@@ -1915,16 +1935,16 @@
                 return testdata;
             };
         /**
-         * @param {?} code_challenge
+         * @param {?} codeChallenge
          * @return {?}
          */
         OidcSecurityValidation.prototype.generate_code_verifier = /**
-         * @param {?} code_challenge
+         * @param {?} codeChallenge
          * @return {?}
          */
-            function (code_challenge) {
+            function (codeChallenge) {
                 /** @type {?} */
-                var hash = jsrsasignReduced.KJUR.crypto.Util.hashString(code_challenge, 'sha256');
+                var hash = jsrsasignReduced.KJUR.crypto.Util.hashString(codeChallenge, 'sha256');
                 /** @type {?} */
                 var testdata = jsrsasignReduced.hextob64u(hash);
                 return testdata;
@@ -2125,13 +2145,13 @@
             this.outstandingMessages = 0;
             this.heartBeatInterval = 3000;
             this.iframeRefreshInterval = 60000;
-            this._onCheckSessionChanged = new rxjs.Subject();
+            this.checkSessionChanged = new rxjs.Subject();
         }
         Object.defineProperty(OidcSecurityCheckSession.prototype, "onCheckSessionChanged", {
             get: /**
              * @return {?}
              */ function () {
-                return this._onCheckSessionChanged.asObservable();
+                return this.checkSessionChanged.asObservable();
             },
             enumerable: true,
             configurable: true
@@ -2233,7 +2253,7 @@
             function (clientId) {
                 var _this = this;
                 /** @type {?} */
-                var _pollServerSessionRecur = ( /**
+                var pollServerSessionRecur = ( /**
                  * @return {?}
                  */function () {
                     _this.init()
@@ -2244,14 +2264,14 @@
                         if (_this.sessionIframe && clientId) {
                             _this.loggerService.logDebug(_this.sessionIframe);
                             /** @type {?} */
-                            var session_state = _this.oidcSecurityCommon.sessionState;
-                            if (session_state) {
+                            var sessionState = _this.oidcSecurityCommon.sessionState;
+                            if (sessionState) {
                                 _this.outstandingMessages++;
-                                _this.sessionIframe.contentWindow.postMessage(clientId + ' ' + session_state, _this.configurationProvider.openIDConfiguration.stsServer);
+                                _this.sessionIframe.contentWindow.postMessage(clientId + ' ' + sessionState, _this.configurationProvider.openIDConfiguration.stsServer);
                             }
                             else {
                                 _this.loggerService.logDebug('OidcSecurityCheckSession pollServerSession session_state is blank');
-                                _this._onCheckSessionChanged.next();
+                                _this.checkSessionChanged.next();
                             }
                         }
                         else {
@@ -2262,17 +2282,17 @@
                         }
                         // after sending three messages with no response, fail.
                         if (_this.outstandingMessages > 3) {
-                            _this.loggerService.logError("OidcSecurityCheckSession not receiving check session response messages. Outstanding messages: " + _this.outstandingMessages + ". Server unreachable?");
-                            _this._onCheckSessionChanged.next();
+                            _this.loggerService.logError("OidcSecurityCheckSession not receiving check session response messages.\n                            Outstanding messages: " + _this.outstandingMessages + ". Server unreachable?");
+                            _this.checkSessionChanged.next();
                         }
-                        _this.scheduledHeartBeat = setTimeout(_pollServerSessionRecur, _this.heartBeatInterval);
+                        _this.scheduledHeartBeat = setTimeout(pollServerSessionRecur, _this.heartBeatInterval);
                     }));
                 });
                 this.outstandingMessages = 0;
                 this.zone.runOutsideAngular(( /**
                  * @return {?}
                  */function () {
-                    _this.scheduledHeartBeat = setTimeout(_pollServerSessionRecur, _this.heartBeatInterval);
+                    _this.scheduledHeartBeat = setTimeout(pollServerSessionRecur, _this.heartBeatInterval);
                 }));
             };
         /**
@@ -2306,7 +2326,7 @@
                         this.loggerService.logWarning('error from checksession messageHandler');
                     }
                     else if (e.data === 'changed') {
-                        this._onCheckSessionChanged.next();
+                        this.checkSessionChanged.next();
                     }
                     else {
                         this.loggerService.logDebug(e.data + ' from checksession messageHandler');
@@ -2719,6 +2739,7 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    // tslint:disable: variable-name
     var OidcSecurityService = /** @class */ (function () {
         function OidcSecurityService(oidcDataService, stateValidationService, router$$1, oidcSecurityCheckSession, oidcSecuritySilentRenew, oidcSecurityUserService, oidcSecurityCommon, oidcSecurityValidation, tokenHelperService, loggerService, zone, httpClient, configurationProvider, urlParserService) {
             var _this = this;
@@ -2768,7 +2789,9 @@
                  * @return {?}
                  */function (isAuthorized) { return isAuthorized; })), operators.take(1), operators.tap(( /**
                  * @return {?}
-                 */function () { return _this.loggerService.logDebug('IsAuthorizedRace: Existing token is still authorized.'); })), operators.race(_this._onAuthorizationResult.pipe(operators.take(1), operators.tap(( /**
+                 */function () { return _this.loggerService.logDebug('IsAuthorizedRace: Existing token is still authorized.'); })), 
+                // tslint:disable-next-line: deprecation
+                operators.race(_this._onAuthorizationResult.pipe(operators.take(1), operators.tap(( /**
                  * @return {?}
                  */function () { return _this.loggerService.logDebug('IsAuthorizedRace: Silent Renew Refresh Session Complete'); })), operators.map(( /**
                  * @return {?}
@@ -3276,12 +3299,9 @@
                 var headers = new http.HttpHeaders();
                 headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
                 /** @type {?} */
-                var data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id +
-                    ("&code_verifier=" + this.oidcSecurityCommon.code_verifier + "&code=" + code + "&redirect_uri=" + this.configurationProvider.openIDConfiguration.redirect_url);
+                var data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n            &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n            &code=" + code + "&redirect_uri=" + this.configurationProvider.openIDConfiguration.redirect_url;
                 if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-                    data =
-                        "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id +
-                            ("&code_verifier=" + this.oidcSecurityCommon.code_verifier + "&code=" + code + "&redirect_uri=" + this.configurationProvider.openIDConfiguration.silent_renew_url);
+                    data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n                &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n                &code=" + code + "\n                &redirect_uri=" + this.configurationProvider.openIDConfiguration.silent_renew_url;
                 }
                 return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(operators.map(( /**
                  * @param {?} response
@@ -3639,6 +3659,7 @@
                     return rxjs.of(false);
                 }
                 this.loggerService.logDebug('BEGIN refresh session Authorize');
+                this.oidcSecurityCommon.silentRenewRunning = 'running';
                 /** @type {?} */
                 var state = this.oidcSecurityCommon.authStateControl;
                 if (state === '' || state === null) {
@@ -3688,7 +3709,6 @@
                         this.loggerService.logWarning('authWellKnownEndpoints is undefined');
                     }
                 }
-                this.oidcSecurityCommon.silentRenewRunning = 'running';
                 return this.oidcSecuritySilentRenew.startRenew(url).pipe(operators.map(( /**
                  * @return {?}
                  */function () { return true; })));
@@ -3717,8 +3737,8 @@
                 }
                 else if (error.status === 401 || error.status === '401') {
                     /** @type {?} */
-                    var silentRenew_1 = this.oidcSecurityCommon.silentRenewRunning;
-                    this.resetAuthorizationData(!!silentRenew_1);
+                    var silentRenewRunning = this.oidcSecurityCommon.silentRenewRunning;
+                    this.resetAuthorizationData(!!silentRenewRunning);
                     if (this.configurationProvider.openIDConfiguration.trigger_authorization_result_event) {
                         this._onAuthorizationResult.next(new AuthorizationResult(AuthorizationState.unauthorized, ValidationResult.NotSet, isRenewProcess));
                     }

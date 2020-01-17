@@ -17,7 +17,7 @@ export declare class OidcSecurityCheckSession {
     private outstandingMessages;
     private heartBeatInterval;
     private iframeRefreshInterval;
-    private _onCheckSessionChanged;
+    private checkSessionChanged;
     readonly onCheckSessionChanged: Observable<any>;
     constructor(oidcSecurityCommon: OidcSecurityCommon, loggerService: LoggerService, iFrameService: IFrameService, zone: NgZone, configurationProvider: ConfigurationProvider);
     private doesSessionExist;

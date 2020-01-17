@@ -91,6 +91,7 @@ const ValidationResult = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// tslint:disable: variable-name
 class ValidateStateResult {
     /**
      * @param {?=} access_token
@@ -129,7 +130,7 @@ class OidcDataService {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/json');
         return this.httpClient.get(url, {
-            headers: headers,
+            headers,
         });
     }
     /**
@@ -144,7 +145,7 @@ class OidcDataService {
         headers = headers.set('Accept', 'application/json');
         headers = headers.set('Authorization', 'Bearer ' + decodeURIComponent(token));
         return this.httpClient.get(url, {
-            headers: headers,
+            headers,
         });
     }
     /**
@@ -157,7 +158,7 @@ class OidcDataService {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/json');
         return this.httpClient.get(url, {
-            headers: headers,
+            headers,
         });
     }
 }
@@ -174,6 +175,7 @@ OidcDataService.ctorParameters = () => [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class PlatformProvider {
+    // tslint:disable-next-line: ban-types
     /**
      * @param {?} platformId
      */
@@ -641,7 +643,8 @@ class TokenHelperService {
         const decoded = typeof window !== 'undefined' ? window.atob(output) : new Buffer(output, 'base64').toString('binary');
         try {
             // Going backwards: from bytestream, to percent-encoding, to original string.
-            return decodeURIComponent(decoded.split('')
+            return decodeURIComponent(decoded
+                .split('')
                 .map((/**
              * @param {?} c
              * @return {?}
@@ -754,160 +757,160 @@ class OidcSecurityCommon {
      */
     constructor(oidcSecurityStorage) {
         this.oidcSecurityStorage = oidcSecurityStorage;
-        this.storage_auth_result = 'authorizationResult';
-        this.storage_access_token = 'authorizationData';
-        this.storage_id_token = 'authorizationDataIdToken';
-        this.storage_is_authorized = '_isAuthorized';
-        this.storage_user_data = 'userData';
-        this.storage_auth_nonce = 'authNonce';
-        this.storage_code_verifier = 'code_verifier';
-        this.storage_auth_state_control = 'authStateControl';
-        this.storage_session_state = 'session_state';
-        this.storage_silent_renew_running = 'storage_silent_renew_running';
-        this.storage_custom_request_params = 'storage_custom_request_params';
+        this.storageAuthResult = 'authorizationResult';
+        this.storageAccessToken = 'authorizationData';
+        this.storageIdToken = 'authorizationDataIdToken';
+        this.storageIsAuthorized = '_isAuthorized';
+        this.storageUserData = 'userData';
+        this.storageAuthNonce = 'authNonce';
+        this.storageCodeVerifier = 'code_verifier';
+        this.storageAuthStateControl = 'authStateControl';
+        this.storageSessionState = 'session_state';
+        this.storageSilentRenewRunning = 'storage_silent_renew_running';
+        this.storageCustomRequestParams = 'storage_custom_request_params';
     }
     /**
      * @return {?}
      */
     get authResult() {
-        return this.retrieve(this.storage_auth_result);
+        return this.retrieve(this.storageAuthResult);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set authResult(value) {
-        this.store(this.storage_auth_result, value);
+        this.store(this.storageAuthResult, value);
     }
     /**
      * @return {?}
      */
     get accessToken() {
-        return this.retrieve(this.storage_access_token) || '';
+        return this.retrieve(this.storageAccessToken) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set accessToken(value) {
-        this.store(this.storage_access_token, value);
+        this.store(this.storageAccessToken, value);
     }
     /**
      * @return {?}
      */
     get idToken() {
-        return this.retrieve(this.storage_id_token) || '';
+        return this.retrieve(this.storageIdToken) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set idToken(value) {
-        this.store(this.storage_id_token, value);
+        this.store(this.storageIdToken, value);
     }
     /**
      * @return {?}
      */
     get isAuthorized() {
-        return this.retrieve(this.storage_is_authorized);
+        return this.retrieve(this.storageIsAuthorized);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set isAuthorized(value) {
-        this.store(this.storage_is_authorized, value);
+        this.store(this.storageIsAuthorized, value);
     }
     /**
      * @return {?}
      */
     get userData() {
-        return this.retrieve(this.storage_user_data);
+        return this.retrieve(this.storageUserData);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set userData(value) {
-        this.store(this.storage_user_data, value);
+        this.store(this.storageUserData, value);
     }
     /**
      * @return {?}
      */
     get authNonce() {
-        return this.retrieve(this.storage_auth_nonce) || '';
+        return this.retrieve(this.storageAuthNonce) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set authNonce(value) {
-        this.store(this.storage_auth_nonce, value);
+        this.store(this.storageAuthNonce, value);
     }
     /**
      * @return {?}
      */
     get code_verifier() {
-        return this.retrieve(this.storage_code_verifier) || '';
+        return this.retrieve(this.storageCodeVerifier) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set code_verifier(value) {
-        this.store(this.storage_code_verifier, value);
+        this.store(this.storageCodeVerifier, value);
     }
     /**
      * @return {?}
      */
     get authStateControl() {
-        return this.retrieve(this.storage_auth_state_control) || '';
+        return this.retrieve(this.storageAuthStateControl) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set authStateControl(value) {
-        this.store(this.storage_auth_state_control, value);
+        this.store(this.storageAuthStateControl, value);
     }
     /**
      * @return {?}
      */
     get sessionState() {
-        return this.retrieve(this.storage_session_state);
+        return this.retrieve(this.storageSessionState);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set sessionState(value) {
-        this.store(this.storage_session_state, value);
+        this.store(this.storageSessionState, value);
     }
     /**
      * @return {?}
      */
     get silentRenewRunning() {
-        return this.retrieve(this.storage_silent_renew_running) || '';
+        return this.retrieve(this.storageSilentRenewRunning) || '';
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set silentRenewRunning(value) {
-        this.store(this.storage_silent_renew_running, value);
+        this.store(this.storageSilentRenewRunning, value);
     }
     /**
      * @return {?}
      */
     get customRequestParams() {
-        return this.retrieve(this.storage_custom_request_params);
+        return this.retrieve(this.storageCustomRequestParams);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set customRequestParams(value) {
-        this.store(this.storage_custom_request_params, value);
+        this.store(this.storageCustomRequestParams, value);
     }
     /**
      * @private
@@ -932,27 +935,27 @@ class OidcSecurityCommon {
      */
     resetStorageData(isRenewProcess) {
         if (!isRenewProcess) {
-            this.store(this.storage_auth_result, '');
-            this.store(this.storage_session_state, '');
-            this.store(this.storage_silent_renew_running, '');
-            this.store(this.storage_is_authorized, false);
-            this.store(this.storage_access_token, '');
-            this.store(this.storage_id_token, '');
-            this.store(this.storage_user_data, '');
-            this.store(this.storage_code_verifier, '');
+            this.store(this.storageAuthResult, '');
+            this.store(this.storageSessionState, '');
+            this.store(this.storageSilentRenewRunning, '');
+            this.store(this.storageIsAuthorized, false);
+            this.store(this.storageAccessToken, '');
+            this.store(this.storageIdToken, '');
+            this.store(this.storageUserData, '');
+            this.store(this.storageCodeVerifier, '');
         }
     }
     /**
      * @return {?}
      */
     getAccessToken() {
-        return this.retrieve(this.storage_access_token);
+        return this.retrieve(this.storageAccessToken);
     }
     /**
      * @return {?}
      */
     getIdToken() {
-        return this.retrieve(this.storage_id_token);
+        return this.retrieve(this.storageIdToken);
     }
     /**
      * @return {?}
@@ -1023,7 +1026,8 @@ class OidcSecurityValidation {
         this.tokenHelperService = tokenHelperService;
         this.loggerService = loggerService;
     }
-    // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+    // id_token C7: The current time MUST be before the time represented by the exp Claim
+    // (possibly allowing for some small leeway to account for clock skew).
     /**
      * @param {?} token
      * @param {?=} offsetSeconds
@@ -1035,7 +1039,9 @@ class OidcSecurityValidation {
         decoded = this.tokenHelperService.getPayloadFromToken(token, false);
         return !this.validate_id_token_exp_not_expired(decoded, offsetSeconds);
     }
-    // id_token C7: The current time MUST be before the time represented by the exp Claim (possibly allowing for some small leeway to account for clock skew).
+    // id_token C7: The current time MUST be before the time represented by the exp Claim
+    // (possibly allowing for some small leeway to account for clock skew).
+    // tslint:disable-next-line: variable-name
     /**
      * @param {?} decoded_id_token
      * @param {?=} offsetSeconds
@@ -1059,7 +1065,8 @@ class OidcSecurityValidation {
         return tokenNotExpired;
     }
     // iss
-    // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the https scheme that contains scheme, host,
+    // REQUIRED. Issuer Identifier for the Issuer of the response.The iss value is a case-sensitive URL using the
+    // https scheme that contains scheme, host,
     // and optionally, port number and path components and no query or fragment components.
     //
     // sub
@@ -1080,7 +1087,8 @@ class OidcSecurityValidation {
     // See RFC 3339 [RFC3339] for details regarding date/ times in general and UTC in particular.
     //
     // iat
-    // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from 1970- 01 - 01T00: 00:00Z as measured
+    // REQUIRED. Time at which the JWT was issued. Its value is a JSON number representing the number of seconds from
+    // 1970- 01 - 01T00: 00: 00Z as measured
     // in UTC until the date/ time.
     /**
      * @param {?} dataIdToken
@@ -1115,29 +1123,26 @@ class OidcSecurityValidation {
     // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
     /**
      * @param {?} dataIdToken
-     * @param {?} max_offset_allowed_in_seconds
-     * @param {?} disable_iat_offset_validation
+     * @param {?} maxOffsetAllowedInSeconds
+     * @param {?} disableIatOffsetValidation
      * @return {?}
      */
-    validate_id_token_iat_max_offset(dataIdToken, max_offset_allowed_in_seconds, disable_iat_offset_validation) {
-        if (disable_iat_offset_validation) {
+    validate_id_token_iat_max_offset(dataIdToken, maxOffsetAllowedInSeconds, disableIatOffsetValidation) {
+        if (disableIatOffsetValidation) {
             return true;
         }
         if (!dataIdToken.hasOwnProperty('iat')) {
             return false;
         }
         /** @type {?} */
-        const dateTime_iat_id_token = new Date(0);
-        dateTime_iat_id_token.setUTCSeconds(dataIdToken.iat);
-        max_offset_allowed_in_seconds = max_offset_allowed_in_seconds || 0;
-        if (dateTime_iat_id_token == null) {
+        const dateTimeIatIdToken = new Date(0);
+        dateTimeIatIdToken.setUTCSeconds(dataIdToken.iat);
+        maxOffsetAllowedInSeconds = maxOffsetAllowedInSeconds || 0;
+        if (dateTimeIatIdToken == null) {
             return false;
         }
-        this.loggerService.logDebug('validate_id_token_iat_max_offset: ' +
-            (new Date().valueOf() - dateTime_iat_id_token.valueOf()) +
-            ' < ' +
-            max_offset_allowed_in_seconds * 1000);
-        return new Date().valueOf() - dateTime_iat_id_token.valueOf() < max_offset_allowed_in_seconds * 1000;
+        this.loggerService.logDebug('validate_id_token_iat_max_offset: ' + (new Date().valueOf() - dateTimeIatIdToken.valueOf()) + ' < ' + maxOffsetAllowedInSeconds * 1000);
+        return new Date().valueOf() - dateTimeIatIdToken.valueOf() < maxOffsetAllowedInSeconds * 1000;
     }
     // id_token C9: The value of the nonce Claim MUST be checked to verify that it is the same value as the one
     // that was sent in the Authentication Request.The Client SHOULD check the nonce value for replay attacks.
@@ -1147,21 +1152,22 @@ class OidcSecurityValidation {
     // The current spec is ambiguous and Keycloak does send it.
     /**
      * @param {?} dataIdToken
-     * @param {?} local_nonce
-     * @param {?} ignore_nonce_after_refresh
+     * @param {?} localNonce
+     * @param {?} ignoreNonceAfterRefresh
      * @return {?}
      */
-    validate_id_token_nonce(dataIdToken, local_nonce, ignore_nonce_after_refresh) {
+    validate_id_token_nonce(dataIdToken, localNonce, ignoreNonceAfterRefresh) {
         /** @type {?} */
-        const isFromRefreshToken = (dataIdToken.nonce === undefined || ignore_nonce_after_refresh) && local_nonce === OidcSecurityValidation.RefreshTokenNoncePlaceholder;
-        if (!isFromRefreshToken && dataIdToken.nonce !== local_nonce) {
-            this.loggerService.logDebug('Validate_id_token_nonce failed, dataIdToken.nonce: ' + dataIdToken.nonce + ' local_nonce:' + local_nonce);
+        const isFromRefreshToken = (dataIdToken.nonce === undefined || ignoreNonceAfterRefresh) && localNonce === OidcSecurityValidation.RefreshTokenNoncePlaceholder;
+        if (!isFromRefreshToken && dataIdToken.nonce !== localNonce) {
+            this.loggerService.logDebug('Validate_id_token_nonce failed, dataIdToken.nonce: ' + dataIdToken.nonce + ' local_nonce:' + localNonce);
             return false;
         }
         return true;
     }
     // id_token C1: The Issuer Identifier for the OpenID Provider (which is typically obtained during Discovery)
     // MUST exactly match the value of the iss (issuer) Claim.
+    // tslint:disable-next-line: variable-name
     /**
      * @param {?} dataIdToken
      * @param {?} authWellKnownEndpoints_issuer
@@ -1204,24 +1210,24 @@ class OidcSecurityValidation {
     }
     /**
      * @param {?} state
-     * @param {?} local_state
+     * @param {?} localState
      * @return {?}
      */
-    validateStateFromHashCallback(state, local_state) {
-        if (((/** @type {?} */ (state))) !== ((/** @type {?} */ (local_state)))) {
-            this.loggerService.logDebug('ValidateStateFromHashCallback failed, state: ' + state + ' local_state:' + local_state);
+    validateStateFromHashCallback(state, localState) {
+        if (((/** @type {?} */ (state))) !== ((/** @type {?} */ (localState)))) {
+            this.loggerService.logDebug('ValidateStateFromHashCallback failed, state: ' + state + ' local_state:' + localState);
             return false;
         }
         return true;
     }
     /**
-     * @param {?} id_token_sub
-     * @param {?} userdata_sub
+     * @param {?} idTokenSub
+     * @param {?} userdataSub
      * @return {?}
      */
-    validate_userdata_sub_id_token(id_token_sub, userdata_sub) {
-        if (((/** @type {?} */ (id_token_sub))) !== ((/** @type {?} */ (userdata_sub)))) {
-            this.loggerService.logDebug('validate_userdata_sub_id_token failed, id_token_sub: ' + id_token_sub + ' userdata_sub:' + userdata_sub);
+    validate_userdata_sub_id_token(idTokenSub, userdataSub) {
+        if (((/** @type {?} */ (idTokenSub))) !== ((/** @type {?} */ (userdataSub)))) {
+            this.loggerService.logDebug('validate_userdata_sub_id_token failed, id_token_sub: ' + idTokenSub + ' userdata_sub:' + userdataSub);
             return false;
         }
         return true;
@@ -1231,31 +1237,31 @@ class OidcSecurityValidation {
     // id_token C6: The alg value SHOULD be RS256. Validation of tokens using other signing algorithms is described in the
     // OpenID Connect Core 1.0 [OpenID.Core] specification.
     /**
-     * @param {?} id_token
+     * @param {?} idToken
      * @param {?} jwtkeys
      * @return {?}
      */
-    validate_signature_id_token(id_token, jwtkeys) {
+    validate_signature_id_token(idToken, jwtkeys) {
         if (!jwtkeys || !jwtkeys.keys) {
             return false;
         }
         /** @type {?} */
-        const header_data = this.tokenHelperService.getHeaderFromToken(id_token, false);
-        if (Object.keys(header_data).length === 0 && header_data.constructor === Object) {
+        const headerData = this.tokenHelperService.getHeaderFromToken(idToken, false);
+        if (Object.keys(headerData).length === 0 && headerData.constructor === Object) {
             this.loggerService.logWarning('id token has no header data');
             return false;
         }
         /** @type {?} */
-        const kid = header_data.kid;
+        const kid = headerData.kid;
         /** @type {?} */
-        const alg = header_data.alg;
+        const alg = headerData.alg;
         if ('RS256' !== ((/** @type {?} */ (alg)))) {
             this.loggerService.logWarning('Only RS256 supported');
             return false;
         }
         /** @type {?} */
         let isValid = false;
-        if (!header_data.hasOwnProperty('kid')) {
+        if (!headerData.hasOwnProperty('kid')) {
             // exactly 1 key in the jwtkeys and no kid in the Jose header
             // kty	"RSA" use "sig"
             /** @type {?} */
@@ -1278,7 +1284,7 @@ class OidcSecurityValidation {
                     if (((/** @type {?} */ (key.kty))) === 'RSA' && ((/** @type {?} */ (key.use))) === 'sig') {
                         /** @type {?} */
                         const publickey = KEYUTIL.getKey(key);
-                        isValid = KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                        isValid = KJUR.jws.JWS.verify(idToken, publickey, ['RS256']);
                         if (!isValid) {
                             this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                         }
@@ -1293,7 +1299,7 @@ class OidcSecurityValidation {
                 if (((/** @type {?} */ (key.kid))) === ((/** @type {?} */ (kid)))) {
                     /** @type {?} */
                     const publickey = KEYUTIL.getKey(key);
-                    isValid = KJUR.jws.JWS.verify(id_token, publickey, ['RS256']);
+                    isValid = KJUR.jws.JWS.verify(idToken, publickey, ['RS256']);
                     if (!isValid) {
                         this.loggerService.logWarning('incorrect Signature, validation failed for id_token');
                     }
@@ -1304,17 +1310,17 @@ class OidcSecurityValidation {
         return isValid;
     }
     /**
-     * @param {?} response_type
+     * @param {?} responseType
      * @return {?}
      */
-    config_validate_response_type(response_type) {
-        if (response_type === 'id_token token' || response_type === 'id_token') {
+    config_validate_response_type(responseType) {
+        if (responseType === 'id_token token' || responseType === 'id_token') {
             return true;
         }
-        if (response_type === 'code') {
+        if (responseType === 'code') {
             return true;
         }
-        this.loggerService.logWarning('module configure incorrect, invalid response_type:' + response_type);
+        this.loggerService.logWarning('module configure incorrect, invalid response_type:' + responseType);
         return false;
     }
     // Accepts ID Token without 'kid' claim in JOSE header if only one JWK supplied in 'jwks_url'
@@ -1336,31 +1342,31 @@ class OidcSecurityValidation {
     // access_token C3: The value of at_hash in the ID Token MUST match the value produced in the previous step if at_hash
     // is present in the ID Token.
     /**
-     * @param {?} access_token
-     * @param {?} at_hash
+     * @param {?} accessToken
+     * @param {?} atHash
      * @param {?} isCodeFlow
      * @return {?}
      */
-    validate_id_token_at_hash(access_token, at_hash, isCodeFlow) {
-        this.loggerService.logDebug('at_hash from the server:' + at_hash);
+    validate_id_token_at_hash(accessToken, atHash, isCodeFlow) {
+        this.loggerService.logDebug('at_hash from the server:' + atHash);
         // The at_hash is optional for the code flow
         if (isCodeFlow) {
-            if (!((/** @type {?} */ (at_hash)))) {
+            if (!((/** @type {?} */ (atHash)))) {
                 this.loggerService.logDebug('Code Flow active, and no at_hash in the id_token, skipping check!');
                 return true;
             }
         }
         /** @type {?} */
-        const testdata = this.generate_at_hash('' + access_token);
+        const testdata = this.generate_at_hash('' + accessToken);
         this.loggerService.logDebug('at_hash client validation not decoded:' + testdata);
-        if (testdata === ((/** @type {?} */ (at_hash)))) {
+        if (testdata === ((/** @type {?} */ (atHash)))) {
             return true; // isValid;
         }
         else {
             /** @type {?} */
-            const testValue = this.generate_at_hash('' + decodeURIComponent(access_token));
+            const testValue = this.generate_at_hash('' + decodeURIComponent(accessToken));
             this.loggerService.logDebug('-gen access--' + testValue);
-            if (testValue === ((/** @type {?} */ (at_hash)))) {
+            if (testValue === ((/** @type {?} */ (atHash)))) {
                 return true; // isValid
             }
         }
@@ -1368,12 +1374,12 @@ class OidcSecurityValidation {
     }
     /**
      * @private
-     * @param {?} access_token
+     * @param {?} accessToken
      * @return {?}
      */
-    generate_at_hash(access_token) {
+    generate_at_hash(accessToken) {
         /** @type {?} */
-        const hash = KJUR.crypto.Util.hashString(access_token, 'sha256');
+        const hash = KJUR.crypto.Util.hashString(accessToken, 'sha256');
         /** @type {?} */
         const first128bits = hash.substr(0, hash.length / 2);
         /** @type {?} */
@@ -1381,12 +1387,12 @@ class OidcSecurityValidation {
         return testdata;
     }
     /**
-     * @param {?} code_challenge
+     * @param {?} codeChallenge
      * @return {?}
      */
-    generate_code_verifier(code_challenge) {
+    generate_code_verifier(codeChallenge) {
         /** @type {?} */
-        const hash = KJUR.crypto.Util.hashString(code_challenge, 'sha256');
+        const hash = KJUR.crypto.Util.hashString(codeChallenge, 'sha256');
         /** @type {?} */
         const testdata = hextob64u(hash);
         return testdata;
@@ -1582,13 +1588,13 @@ class OidcSecurityCheckSession {
         this.outstandingMessages = 0;
         this.heartBeatInterval = 3000;
         this.iframeRefreshInterval = 60000;
-        this._onCheckSessionChanged = new Subject();
+        this.checkSessionChanged = new Subject();
     }
     /**
      * @return {?}
      */
     get onCheckSessionChanged() {
-        return this._onCheckSessionChanged.asObservable();
+        return this.checkSessionChanged.asObservable();
     }
     /**
      * @private
@@ -1667,7 +1673,7 @@ class OidcSecurityCheckSession {
      */
     pollServerSession(clientId) {
         /** @type {?} */
-        const _pollServerSessionRecur = (/**
+        const pollServerSessionRecur = (/**
          * @return {?}
          */
         () => {
@@ -1680,14 +1686,14 @@ class OidcSecurityCheckSession {
                 if (this.sessionIframe && clientId) {
                     this.loggerService.logDebug(this.sessionIframe);
                     /** @type {?} */
-                    const session_state = this.oidcSecurityCommon.sessionState;
-                    if (session_state) {
+                    const sessionState = this.oidcSecurityCommon.sessionState;
+                    if (sessionState) {
                         this.outstandingMessages++;
-                        this.sessionIframe.contentWindow.postMessage(clientId + ' ' + session_state, this.configurationProvider.openIDConfiguration.stsServer);
+                        this.sessionIframe.contentWindow.postMessage(clientId + ' ' + sessionState, this.configurationProvider.openIDConfiguration.stsServer);
                     }
                     else {
                         this.loggerService.logDebug('OidcSecurityCheckSession pollServerSession session_state is blank');
-                        this._onCheckSessionChanged.next();
+                        this.checkSessionChanged.next();
                     }
                 }
                 else {
@@ -1698,10 +1704,11 @@ class OidcSecurityCheckSession {
                 }
                 // after sending three messages with no response, fail.
                 if (this.outstandingMessages > 3) {
-                    this.loggerService.logError(`OidcSecurityCheckSession not receiving check session response messages. Outstanding messages: ${this.outstandingMessages}. Server unreachable?`);
-                    this._onCheckSessionChanged.next();
+                    this.loggerService.logError(`OidcSecurityCheckSession not receiving check session response messages.
+                            Outstanding messages: ${this.outstandingMessages}. Server unreachable?`);
+                    this.checkSessionChanged.next();
                 }
-                this.scheduledHeartBeat = setTimeout(_pollServerSessionRecur, this.heartBeatInterval);
+                this.scheduledHeartBeat = setTimeout(pollServerSessionRecur, this.heartBeatInterval);
             }));
         });
         this.outstandingMessages = 0;
@@ -1709,7 +1716,7 @@ class OidcSecurityCheckSession {
          * @return {?}
          */
         () => {
-            this.scheduledHeartBeat = setTimeout(_pollServerSessionRecur, this.heartBeatInterval);
+            this.scheduledHeartBeat = setTimeout(pollServerSessionRecur, this.heartBeatInterval);
         }));
     }
     /**
@@ -1734,7 +1741,7 @@ class OidcSecurityCheckSession {
                 this.loggerService.logWarning('error from checksession messageHandler');
             }
             else if (e.data === 'changed') {
-                this._onCheckSessionChanged.next();
+                this.checkSessionChanged.next();
             }
             else {
                 this.loggerService.logDebug(e.data + ' from checksession messageHandler');
@@ -2087,6 +2094,7 @@ UrlParserService.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// tslint:disable: variable-name
 class OidcSecurityService {
     /**
      * @param {?} oidcDataService
@@ -2156,7 +2164,9 @@ class OidcSecurityService {
             (isAuthorized) => isAuthorized)), take(1), tap((/**
              * @return {?}
              */
-            () => this.loggerService.logDebug('IsAuthorizedRace: Existing token is still authorized.'))), race(this._onAuthorizationResult.pipe(take(1), tap((/**
+            () => this.loggerService.logDebug('IsAuthorizedRace: Existing token is still authorized.'))), 
+            // tslint:disable-next-line: deprecation
+            race(this._onAuthorizationResult.pipe(take(1), tap((/**
              * @return {?}
              */
             () => this.loggerService.logDebug('IsAuthorizedRace: Silent Renew Refresh Session Complete'))), map((/**
@@ -2564,14 +2574,16 @@ class OidcSecurityService {
         let headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        let data = `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}` +
-            `&code_verifier=${this.oidcSecurityCommon.code_verifier}&code=${code}&redirect_uri=${this.configurationProvider.openIDConfiguration.redirect_url}`;
+        let data = `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+            &code_verifier=${this.oidcSecurityCommon.code_verifier}
+            &code=${code}&redirect_uri=${this.configurationProvider.openIDConfiguration.redirect_url}`;
         if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-            data =
-                `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}` +
-                    `&code_verifier=${this.oidcSecurityCommon.code_verifier}&code=${code}&redirect_uri=${this.configurationProvider.openIDConfiguration.silent_renew_url}`;
+            data = `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+                &code_verifier=${this.oidcSecurityCommon.code_verifier}
+                &code=${code}
+                &redirect_uri=${this.configurationProvider.openIDConfiguration.silent_renew_url}`;
         }
-        return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(map((/**
+        return this.httpClient.post(tokenRequestUrl, data, { headers }).pipe(map((/**
          * @param {?} response
          * @return {?}
          */
@@ -2628,7 +2640,7 @@ class OidcSecurityService {
          * @param {?} item
          * @return {?}
          */
-        function (resultData, item) {
+        (resultData, item) => {
             /** @type {?} */
             const parts = item.split('=');
             resultData[(/** @type {?} */ (parts.shift()))] = parts.join('=');
@@ -2881,6 +2893,7 @@ class OidcSecurityService {
             return of(false);
         }
         this.loggerService.logDebug('BEGIN refresh session Authorize');
+        this.oidcSecurityCommon.silentRenewRunning = 'running';
         /** @type {?} */
         let state = this.oidcSecurityCommon.authStateControl;
         if (state === '' || state === null) {
@@ -2930,7 +2943,6 @@ class OidcSecurityService {
                 this.loggerService.logWarning('authWellKnownEndpoints is undefined');
             }
         }
-        this.oidcSecurityCommon.silentRenewRunning = 'running';
         return this.oidcSecuritySilentRenew.startRenew(url).pipe(map((/**
          * @return {?}
          */
@@ -2956,8 +2968,8 @@ class OidcSecurityService {
         }
         else if (error.status === 401 || error.status === '401') {
             /** @type {?} */
-            const silentRenew = this.oidcSecurityCommon.silentRenewRunning;
-            this.resetAuthorizationData(!!silentRenew);
+            const silentRenewRunning = this.oidcSecurityCommon.silentRenewRunning;
+            this.resetAuthorizationData(!!silentRenewRunning);
             if (this.configurationProvider.openIDConfiguration.trigger_authorization_result_event) {
                 this._onAuthorizationResult.next(new AuthorizationResult(AuthorizationState.unauthorized, ValidationResult.NotSet, isRenewProcess));
             }

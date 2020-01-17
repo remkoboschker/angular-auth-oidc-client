@@ -10,15 +10,15 @@ export declare class OidcSecurityValidation {
     isTokenExpired(token: string, offsetSeconds?: number): boolean;
     validate_id_token_exp_not_expired(decoded_id_token: string, offsetSeconds?: number): boolean;
     validate_required_id_token(dataIdToken: any): boolean;
-    validate_id_token_iat_max_offset(dataIdToken: any, max_offset_allowed_in_seconds: number, disable_iat_offset_validation: boolean): boolean;
-    validate_id_token_nonce(dataIdToken: any, local_nonce: any, ignore_nonce_after_refresh: boolean): boolean;
+    validate_id_token_iat_max_offset(dataIdToken: any, maxOffsetAllowedInSeconds: number, disableIatOffsetValidation: boolean): boolean;
+    validate_id_token_nonce(dataIdToken: any, localNonce: any, ignoreNonceAfterRefresh: boolean): boolean;
     validate_id_token_iss(dataIdToken: any, authWellKnownEndpoints_issuer: any): boolean;
     validate_id_token_aud(dataIdToken: any, aud: any): boolean;
-    validateStateFromHashCallback(state: any, local_state: any): boolean;
-    validate_userdata_sub_id_token(id_token_sub: any, userdata_sub: any): boolean;
-    validate_signature_id_token(id_token: any, jwtkeys: any): boolean;
-    config_validate_response_type(response_type: string): boolean;
-    validate_id_token_at_hash(access_token: any, at_hash: any, isCodeFlow: boolean): boolean;
+    validateStateFromHashCallback(state: any, localState: any): boolean;
+    validate_userdata_sub_id_token(idTokenSub: any, userdataSub: any): boolean;
+    validate_signature_id_token(idToken: any, jwtkeys: any): boolean;
+    config_validate_response_type(responseType: string): boolean;
+    validate_id_token_at_hash(accessToken: any, atHash: any, isCodeFlow: boolean): boolean;
     private generate_at_hash;
-    generate_code_verifier(code_challenge: any): string;
+    generate_code_verifier(codeChallenge: any): string;
 }
