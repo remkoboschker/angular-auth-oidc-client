@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, from, Observable, of, ReplaySubject, BehaviorSubject, throwError, timer } from 'rxjs';
 import { take, catchError, switchMap, map, filter, race, shareReplay, switchMapTo, tap } from 'rxjs/operators';
 import { Injectable, Inject, PLATFORM_ID, NgZone, NgModule, defineInjectable, inject } from '@angular/core';
+import { oneLine } from 'common-tags';
 
 /**
  * @fileoverview added by tsickle
@@ -2521,7 +2522,7 @@ class OidcSecurityService {
         let headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        const data = `grant_type=refresh_token&client_id=${this.configurationProvider.openIDConfiguration.client_id}` + `&refresh_token=${code}`;
+        const data = `grant_type=refresh_token&client_id=${this.configurationProvider.openIDConfiguration.client_id}&refresh_token=${code}`;
         return this.httpClient.post(tokenRequestUrl, data, { headers }).pipe(map((/**
          * @param {?} response
          * @return {?}
@@ -2574,11 +2575,11 @@ class OidcSecurityService {
         let headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        let data = `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+        let data = oneLine `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
             &code_verifier=${this.oidcSecurityCommon.code_verifier}
             &code=${code}&redirect_uri=${this.configurationProvider.openIDConfiguration.redirect_url}`;
         if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-            data = `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+            data = oneLine `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
                 &code_verifier=${this.oidcSecurityCommon.code_verifier}
                 &code=${code}
                 &redirect_uri=${this.configurationProvider.openIDConfiguration.silent_renew_url}`;

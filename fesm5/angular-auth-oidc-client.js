@@ -1,11 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
-import { __assign, __spread, __values } from 'tslib';
 import { hextob64u, KEYUTIL, KJUR } from 'jsrsasign-reduced';
+import { __assign, __spread, __values, __makeTemplateObject } from 'tslib';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, from, Observable, of, ReplaySubject, BehaviorSubject, throwError, timer } from 'rxjs';
 import { take, catchError, switchMap, map, filter, race, shareReplay, switchMapTo, tap } from 'rxjs/operators';
 import { Injectable, Inject, PLATFORM_ID, NgZone, NgModule, defineInjectable, inject } from '@angular/core';
+import { oneLine } from 'common-tags';
 
 /**
  * @fileoverview added by tsickle
@@ -3182,7 +3183,7 @@ var OidcSecurityService = /** @class */ (function () {
         var headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        var data = "grant_type=refresh_token&client_id=" + this.configurationProvider.openIDConfiguration.client_id + ("&refresh_token=" + code);
+        var data = "grant_type=refresh_token&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "&refresh_token=" + code;
         return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(map((/**
          * @param {?} response
          * @return {?}
@@ -3251,9 +3252,9 @@ var OidcSecurityService = /** @class */ (function () {
         var headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        var data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n            &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n            &code=" + code + "&redirect_uri=" + this.configurationProvider.openIDConfiguration.redirect_url;
+        var data = oneLine(templateObject_1 || (templateObject_1 = __makeTemplateObject(["grant_type=authorization_code&client_id=", "\n            &code_verifier=", "\n            &code=", "&redirect_uri=", ""], ["grant_type=authorization_code&client_id=", "\n            &code_verifier=", "\n            &code=", "&redirect_uri=", ""])), this.configurationProvider.openIDConfiguration.client_id, this.oidcSecurityCommon.code_verifier, code, this.configurationProvider.openIDConfiguration.redirect_url);
         if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-            data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n                &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n                &code=" + code + "\n                &redirect_uri=" + this.configurationProvider.openIDConfiguration.silent_renew_url;
+            data = oneLine(templateObject_2 || (templateObject_2 = __makeTemplateObject(["grant_type=authorization_code&client_id=", "\n                &code_verifier=", "\n                &code=", "\n                &redirect_uri=", ""], ["grant_type=authorization_code&client_id=", "\n                &code_verifier=", "\n                &code=", "\n                &redirect_uri=", ""])), this.configurationProvider.openIDConfiguration.client_id, this.oidcSecurityCommon.code_verifier, code, this.configurationProvider.openIDConfiguration.silent_renew_url);
         }
         return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(map((/**
          * @param {?} response
@@ -4096,6 +4097,7 @@ var OidcSecurityService = /** @class */ (function () {
     ]; };
     return OidcSecurityService;
 }());
+var templateObject_1, templateObject_2;
 
 /**
  * @fileoverview added by tsickle

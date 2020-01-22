@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('jsrsasign-reduced'), require('@angular/common/http'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('angular-auth-oidc-client', ['exports', '@angular/common', 'jsrsasign-reduced', '@angular/common/http', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/core'], factory) :
-    (factory((global['angular-auth-oidc-client'] = {}),global.ng.common,global['jsrsasign-reduced'],global.ng.common.http,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.core));
-}(this, (function (exports,common,jsrsasignReduced,http,router,rxjs,operators,i0) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('jsrsasign-reduced'), require('@angular/common/http'), require('@angular/router'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('common-tags')) :
+    typeof define === 'function' && define.amd ? define('angular-auth-oidc-client', ['exports', '@angular/common', 'jsrsasign-reduced', '@angular/common/http', '@angular/router', 'rxjs', 'rxjs/operators', '@angular/core', 'common-tags'], factory) :
+    (factory((global['angular-auth-oidc-client'] = {}),global.ng.common,global['jsrsasign-reduced'],global.ng.common.http,global.ng.router,global.rxjs,global.rxjs.operators,global.ng.core,global.commonTags));
+}(this, (function (exports,common,jsrsasignReduced,http,router,rxjs,operators,i0,commonTags) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -252,6 +252,15 @@
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
+    }
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
+        return cooked;
     }
 
     /**
@@ -3232,7 +3241,7 @@
                 var headers = new http.HttpHeaders();
                 headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
                 /** @type {?} */
-                var data = "grant_type=refresh_token&client_id=" + this.configurationProvider.openIDConfiguration.client_id + ("&refresh_token=" + code);
+                var data = "grant_type=refresh_token&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "&refresh_token=" + code;
                 return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(operators.map(( /**
                  * @param {?} response
                  * @return {?}
@@ -3299,9 +3308,9 @@
                 var headers = new http.HttpHeaders();
                 headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
                 /** @type {?} */
-                var data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n            &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n            &code=" + code + "&redirect_uri=" + this.configurationProvider.openIDConfiguration.redirect_url;
+                var data = commonTags.oneLine(templateObject_1 || (templateObject_1 = __makeTemplateObject(["grant_type=authorization_code&client_id=", "\n            &code_verifier=", "\n            &code=", "&redirect_uri=", ""], ["grant_type=authorization_code&client_id=", "\n            &code_verifier=", "\n            &code=", "&redirect_uri=", ""])), this.configurationProvider.openIDConfiguration.client_id, this.oidcSecurityCommon.code_verifier, code, this.configurationProvider.openIDConfiguration.redirect_url);
                 if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-                    data = "grant_type=authorization_code&client_id=" + this.configurationProvider.openIDConfiguration.client_id + "\n                &code_verifier=" + this.oidcSecurityCommon.code_verifier + "\n                &code=" + code + "\n                &redirect_uri=" + this.configurationProvider.openIDConfiguration.silent_renew_url;
+                    data = commonTags.oneLine(templateObject_2 || (templateObject_2 = __makeTemplateObject(["grant_type=authorization_code&client_id=", "\n                &code_verifier=", "\n                &code=", "\n                &redirect_uri=", ""], ["grant_type=authorization_code&client_id=", "\n                &code_verifier=", "\n                &code=", "\n                &redirect_uri=", ""])), this.configurationProvider.openIDConfiguration.client_id, this.oidcSecurityCommon.code_verifier, code, this.configurationProvider.openIDConfiguration.silent_renew_url);
                 }
                 return this.httpClient.post(tokenRequestUrl, data, { headers: headers }).pipe(operators.map(( /**
                  * @param {?} response
@@ -4131,6 +4140,7 @@
         };
         return OidcSecurityService;
     }());
+    var templateObject_1, templateObject_2;
 
     /**
      * @fileoverview added by tsickle
