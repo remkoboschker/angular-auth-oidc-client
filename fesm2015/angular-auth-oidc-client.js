@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, from, Observable, of, ReplaySubject, BehaviorSubject, throwError, timer } from 'rxjs';
 import { take, catchError, switchMap, map, filter, race, shareReplay, switchMapTo, tap } from 'rxjs/operators';
 import { Injectable, Inject, PLATFORM_ID, NgZone, NgModule, defineInjectable, inject } from '@angular/core';
-import { oneLine } from 'common-tags';
+import { oneLineTrim } from 'common-tags';
 
 /**
  * @fileoverview added by tsickle
@@ -2575,11 +2575,11 @@ class OidcSecurityService {
         let headers = new HttpHeaders();
         headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
         /** @type {?} */
-        let data = oneLine `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+        let data = oneLineTrim `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
             &code_verifier=${this.oidcSecurityCommon.code_verifier}
             &code=${code}&redirect_uri=${this.configurationProvider.openIDConfiguration.redirect_url}`;
         if (this.oidcSecurityCommon.silentRenewRunning === 'running') {
-            data = oneLine `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
+            data = oneLineTrim `grant_type=authorization_code&client_id=${this.configurationProvider.openIDConfiguration.client_id}
                 &code_verifier=${this.oidcSecurityCommon.code_verifier}
                 &code=${code}
                 &redirect_uri=${this.configurationProvider.openIDConfiguration.silent_renew_url}`;
