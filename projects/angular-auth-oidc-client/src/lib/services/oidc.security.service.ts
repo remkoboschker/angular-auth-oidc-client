@@ -392,9 +392,12 @@ export class OidcSecurityService {
                 this.authorizedCodeFlowCallbackProcedure(obj);
             }),
             catchError(error => {
-                this.loggerService.logError(error);
-                this.loggerService.logError(`OidcService code request ${this.configurationProvider.openIDConfiguration.stsServer}`);
-                return of(false);
+                this.loggerService.logDebug('token refresh failure response: ' + JSON.stringify(error));
+                let obj: any = new Object();
+                obj = error;
+                obj.state = state;
+
+                this.authorizedCodeFlowCallbackProcedure(obj);
             })
         );
     }
