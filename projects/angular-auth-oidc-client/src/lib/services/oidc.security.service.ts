@@ -398,7 +398,6 @@ export class OidcSecurityService {
                 obj.state = state;
 
                 this.authorizedCodeFlowCallbackProcedure(obj);
-                return of(false);
             })
         );
     }
